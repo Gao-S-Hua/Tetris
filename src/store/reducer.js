@@ -2,7 +2,12 @@ import {fromJS} from 'immutable';
 
 
 const defautlState = fromJS({
-    logInfo : false
+    score : 0,
+    dead : true,
+    wallData : [],
+    activeData : [],
+    activeX : 0,
+    activeY : 0
 })
 
 const reducer = (state = defautlState, action) => {

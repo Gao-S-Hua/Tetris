@@ -1,0 +1,57 @@
+.block{
+    height : 25px;
+    width : 25px;
+    float : left;
+}
+
+.mainBody{
+    margin : 10px 20px;
+    height : 504px;
+    width : 254px;
+    background-color : rgba(128, 128, 128, 0.472);
+    border : 2px solid;
+    border-radius : 5px;
+    float : left;
+}
+
+.control{
+    margin : 80px 0;
+    width : 260px;
+    height :330px;
+    float : left;
+    background : #ff880094;
+    border : 2px solid;
+    border-radius : 15px;
+}
+
+.button1{
+    margin : auto;
+    width : 60px;
+    height : 60px;
+    font-size : 30px;
+    display: flex;
+    justify-content: center;
+}
+.button2{
+    margin :  0 10px 0 40px;
+    width : 60px;
+    height : 60px;
+    font-size : 30px;
+}
+.button3{
+    margin :  0 10px 0 45px;
+    width : 60px;
+    height : 60px;
+    font-size : 30px;
+}
+.controltext{
+    margin:10px auto;
+    text-align: center;
+    font-size : 20px;
+}
+.reset{
+    margin :  10px 50px;
+    width : 160px;
+    height : 60px;
+    font-size : 30px;
+}

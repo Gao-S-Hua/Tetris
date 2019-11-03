@@ -25,7 +25,7 @@ module.exports = {
                     resolve('../src/style'),
                     resolve('../src/component')
                 ],
-                use:[{loader: MiniCssExtractPlugin.loader},{loader: 'css-loader',options:{modules: true}}, 'less-loader']
+                use:[{loader: MiniCssExtractPlugin.loader},{loader: 'css-loader',options:{modules: true, url: true}}, 'less-loader']
             },
             {
                 test : /\.(css|less)/, 
