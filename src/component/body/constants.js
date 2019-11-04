@@ -1,5 +1,6 @@
-export const HEIGHT = 20;
+export const HEIGHT = 18;
 export const WIDTH = 10;
+export const TIME_GAP = 700;
 export const newEmpty = () => {
     const data = [];
     for(let i = 0; i < HEIGHT; i++){
@@ -17,8 +18,14 @@ export const newBlock = [
     [[1,1],[1,1]], // 2X2
     [[1,1,0],[0,1,1]], //Z
     [[0,1,1],[1,1,0]],
-    [[0,1,0],[1,1,1]]
+    [[0,1,0],[1,1,1]],
+    [[1,0,0],[1,1,1]],
+    [[0,0,1],[1,1,1]]
 ];
 
+export const newActive = () => {
+    const ans = newBlock[Math.floor(Math.random()*newBlock.length)];
+    return ans;
+}
 
 export const newConstants = 208;
