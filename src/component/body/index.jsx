@@ -13,6 +13,27 @@ const Body = () => {
     const [activeBlock, setActive] = useState([0]);
     const [wallData, setWall] = useState([0]);
     
+
+    useEffect(() => {
+        if(checkHit()){
+            setWall(combine());
+            setY(0);
+            setX(4);
+            const active = newBlock[Math.round(Math.random()*4)];
+            setActive(active);
+        }
+    },[posiY]);
+
+    const combine = () => {
+        const newWall = JSON.parse(JSON.stringify(wallData));
+        for(let i = 0; i < activeBlock[0].length; i++){
+            for(let j = 0; j < activeBlock.length; j++){
+               newWall[posiY + j][posiX + i] |= activeBlock[j][i] ;
+            }
+        }
+        console.log(newWall);
+        return newWall;
+    }
     const handleReset = () => {
         setWall(newEmpty());
         const active = newBlock[Math.round(Math.random()*4)];
@@ -20,13 +41,8 @@ const Body = () => {
         setX(4);
         setY(0);
         timerRef.current = setInterval(() => {setY(posiY => Math.min(posiY + 1, HEIGHT - activeBlock.length -1))}, 800);
-        // timerRef.current = setInterval(() => handleDown(), 800);
     }
-    // useEffect(() => {
-    //     if(posiY + activeBlock.length == HEIGHT){
-            
-    //     }
-    // },[posiY])
+
     const handleLeft = () => {setX(Math.max(posiX - 1,0))};
     const handleRight = () => {
         setX(Math.min(posiX + 1,WIDTH - activeBlock[0].length ) );
@@ -48,6 +64,18 @@ const Body = () => {
             setActive(reverseBlock);
     };
 
+    const checkHit = () => {
+        // Check hit bottom
+        if(posiY + activeBlock.length == HEIGHT) return true;
+        // Check hit wall
+        for(let i = 0; i < activeBlock[0].length; i++){
+            for(let j = 0; j < activeBlock.length; j++){
+               if(wallData[posiY + j + 1][posiX+i] && activeBlock[j][i])
+                    return true;
+            }
+        }
+        return false;
+    }
 
     const display = () => {
         const rawData = newEmpty();
