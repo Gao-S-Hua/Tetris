@@ -16,17 +16,17 @@ const Body = (props) => {
         if(dead){
             clearInterval(timerID);
         }else{
-            console.log("set timer");
             const id = setInterval( ()=>dispatch({type : ACTION.TIME_DROP}), TIME_GAP );
             dispatch({type : ACTION.SET_TIMER, data : id })
-            console.log(id);
         }
     } ,[dead])
+
+
     const Debug = () => (
         <div>
             posiX : {posiX}     posiY : {posiY}     dead : {dead.toString()} timerID : {timerID}
             <br />
-            {activeBlock};
+            {activeBlock.toString()};
         </div>
     )
     const display = () => {

@@ -15,7 +15,9 @@ const defautlState = fromJS({
 const reducer = (state = defautlState, action) => {
     const posiX = state.get('posiX');
     const posiY = state.get('posiY');
+    const wallData = state.get('wallData');
     const activeBlock = state.get('activeBlock');
+    
     switch(action.type){
         case ACTION.RESET:{
             return state.merge({
@@ -59,8 +61,20 @@ const reducer = (state = defautlState, action) => {
         }
 
         case ACTION.TIME_DROP : {
-            console.log("TIME OUT");
-            return state;
+            if(checkHit(posiY, posiX, activeBlock, wallData)){
+                console.log('hit');
+                const {scoreNew,newWallReturn} = combine(posiY, posiX, activeBlock, wallData);
+                return state.merge({
+                    wallData : newWallReturn,
+                    score : state.get('score') + scoreNew,
+                    posiX : 4,
+                    posiY : 0,
+                    activeBlock : newActive()
+                })
+            }
+            else{ 
+                return state.set('posiY', Math.min(posiY + 1,HEIGHT - activeBlock.length));
+            }
         }
 
         case ACTION.SET_TIMER:{
@@ -72,3 +86,48 @@ const reducer = (state = defautlState, action) => {
 };
 
 export default reducer;
+
+
+const checkHit = (posiY, posiX, activeBlock, wallData) => {
+    // Check hit bottom
+    if(posiY + activeBlock.length == HEIGHT) return true;
+    // Check hit wall
+    for(let i = 0; i < activeBlock[0].length; i++){
+        for(let j = 0; j < activeBlock.length; j++){
+           if(wallData[posiY + j + 1][posiX+i] && activeBlock[j][i])
+                return true;
+        }
+    }
+    return false;
+};
+
+const combine = (posiY, posiX, activeBlock, wallData) => {
+    const newWall = JSON.parse(JSON.stringify(wallData));
+    for(let i = 0; i < activeBlock[0].length; i++){
+        for(let j = 0; j < activeBlock.length; j++){
+           newWall[posiY + j][posiX + i] |= activeBlock[j][i] ;
+        }
+    }
+    // clear wall
+    const clearLevel = [];
+    for(let i = 0; i < newWall.length; i++){
+        let clear = true;
+        for(let j = 0; j < newWall[0].length; j++){
+           clear &= newWall[i][j];
+           if(!clear) break;
+        }
+        if(clear) clearLevel.push(i);
+    }
+    if(clearLevel.length == 0) // Dont need to clear
+        return {scoreNew : 0, newWallReturn : newWall};
+    const returnWall = [];
+    for(let i = 0; i < clearLevel.length; i++){
+        const newLevel = new Array(WIDTH).fill(0);
+        returnWall.push(newLevel);
+    }
+    for(let i = 0; i < newWall.length; i++){
+        if(!clearLevel.includes(i))
+            returnWall.push(newWall[i]);
+    }
+    return {scoreNew : clearLevel.length, newWallReturn : returnWall};
+}
