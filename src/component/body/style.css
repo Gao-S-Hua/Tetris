@@ -4,9 +4,17 @@
     float : left;
 }
 
+.scoretitle{
+    color : #ff8800d2;
+    margin : 5px 20px;
+    font-weight : bold;
+    font-size : 18px;
+}
+
 .mainBody{
     margin : 10px 20px;
-    height : 454px;
+    /* height : 454px; */
+    height : 504px;
     width : 254px;
     background-color : rgba(128, 128, 128, 0.472);
     border : 2px solid;

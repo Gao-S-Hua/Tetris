@@ -8,7 +8,7 @@ import 'antd/dist/antd.css';
 
 const loading = <Icon type="loading" style={{ fontSize: '300px', margin : '100px 100px'}}/>;
 const Body = Loadable({
-    loader : () => (import('./component/body/')),
+    loader : () => (import('./component/body/index')),
     loading : () => loading
 });
 
@@ -16,8 +16,8 @@ const Body = Loadable({
 const App = () => {
     return(
         <Provider store = {store}>
-                <Head />
-                <Body />
+            <Head />
+            <Body />
         </Provider>
     );
 };

@@ -1,4 +1,4 @@
-export const HEIGHT = 18;
+export const HEIGHT = 20;
 export const WIDTH = 10;
 export const TIME_GAP = 700;
 export const newEmpty = () => {
@@ -15,6 +15,8 @@ export const newEmpty = () => {
 
 export const newBlock = [
     [[1,1,1,1]], //1X4
+    [[1,1,1,1]], //1X4
+    [[1,1],[1,1]], // 2X2
     [[1,1],[1,1]], // 2X2
     [[1,1,0],[0,1,1]], //Z
     [[0,1,1],[1,1,0]],
