@@ -17,10 +17,12 @@ const Body = (props) => {
         if(dead){
             if(start){
                 clearInterval(timerID);
-                alert("GAME OVER !")
+                alert("GAME OVER !");
+                //document.removeEventListener('keydown',listen2); NOT WORKING
             }
         }else{
             const id = setInterval( ()=>dispatch({type : ACTION.TIME_DROP}), TIME_GAP );
+            document.addEventListener('keydown', handleKey);
             dispatch({type : ACTION.SET_TIMER, data : id })
         }
     } ,[dead])
@@ -31,6 +33,13 @@ const Body = (props) => {
         }
     } ,[wallData])
 
+    const handleKey = (e) => {
+        console.log(e);
+        if(e.code === "ArrowUp")    handleUp();
+        if(e.code === "ArrowDown")  handleDown();
+        if(e.code === "ArrowLeft")  handleLeft();
+        if(e.code === "ArrowRight")  handleRight();
+    }
     const display = () => {
         const rawData = newEmpty();
         for(let i = 0; i < wallData.length; i++){
@@ -60,7 +69,9 @@ const Body = (props) => {
         <>
         <div className = {styles.scoretitle}>总分数： {score}</div>
         <div className = {start ? styles.mainBody : styles.mainBody_init}>
+            <div id = 'main_body'>
             {start ? display() : welcomeLogo()}
+            </div>
         </div>
         <Control 
         handleReset = {handleReset} 
@@ -73,6 +84,9 @@ const Body = (props) => {
     );
 }
 
+const listen2 = (e) => {
+    console.log(e);
+}
 
 
 const mapState = (state) => (
