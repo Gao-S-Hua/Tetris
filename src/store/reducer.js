@@ -1,5 +1,5 @@
 import {fromJS} from 'immutable';
-import {newEmpty, newActive, HEIGHT, WIDTH,TIME_GAP} from '../component/body/constants';
+import {newEmpty, newActive, HEIGHT, WIDTH} from '../component/body/constants';
 import * as ACTION from './constants';
 
 const defautlState = fromJS({

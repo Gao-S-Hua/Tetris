@@ -1,9 +1,9 @@
-import React, {useState, useEffect,useRef} from 'react';
+import React, {useEffect} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import styles from './style.css';
 import Block from './Block';
 import Control from './Control';
-import {newEmpty, newActive, HEIGHT, WIDTH,TIME_GAP} from './constants';
+import {newEmpty, TIME_GAP} from './constants';
 import 'antd/dist/antd.css';
 import logo from '../../assets/Tetris_logo.jpg';
 import * as ACTION from '../../store/constants';
@@ -72,8 +72,6 @@ const Body = (props) => {
         </>
     );
 }
-
-// Handlers :
 
 
 
