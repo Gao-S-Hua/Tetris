@@ -1,7 +1,9 @@
-export const RESET = 'react_game';
-export const CLICK_LEFT = 'click_left';
-export const CLICK_RIGHT = 'click_right';
-export const CLICK_DOWN = 'click_down';
-export const CLICK_UP = 'click_up';
-export const TIME_DROP = 'time_out_and_drop';
-export const SET_TIMER = 'set_timer';
+const head = 'main_game_constants';
+export const RESET = 'react_game' + head;
+export const CLICK_LEFT = 'click_left' + head;
+export const CLICK_RIGHT = 'click_right' + head;
+export const CLICK_DOWN = 'click_down' + head;
+export const CLICK_UP = 'click_up' + head;
+export const TIME_DROP = 'time_out_and_drop' + head;
+export const SET_TIMER = 'set_timer' + head;
+export const GAME_END = 'game_end' + head;

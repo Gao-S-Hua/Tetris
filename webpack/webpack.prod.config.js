@@ -4,12 +4,12 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const webpackConfigBuild = {
     mode : 'production',
-    output : {
+    // output : {
         //publicPath : 'www.host.com/',
-    },
-    plugins : [
-        new BundleAnalyzerPlugin()
-    ]
+    // },
+    // plugins : [
+    //     new BundleAnalyzerPlugin()
+    // ]
 };
 
 module.exports = merge(webpackConfigBase, webpackConfigBuild);

@@ -13,10 +13,20 @@
 
 .mainBody{
     margin : 10px 20px;
-    /* height : 454px; */
     height : 504px;
     width : 254px;
-    background-color : rgba(128, 128, 128, 0.472);
+    background-image : url('../../assets/game_background.jpg');
+    background-size: contain;
+    border : 2px solid;
+    border-radius : 5px;
+    float : left;
+}
+
+.mainBody_init{
+    margin : 10px 20px;
+    height : 504px;
+    width : 254px;
+    background-color : black;
     border : 2px solid;
     border-radius : 5px;
     float : left;
@@ -62,4 +72,8 @@
     width : 160px;
     height : 60px;
     font-size : 30px;
+}
+
+.welcomeLogo{
+    margin : 50px 0;
 }

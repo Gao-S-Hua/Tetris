@@ -38,7 +38,7 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif)$/i, 
                 loader: 'file-loader',
-                options: {name: 'media/[name].[hash:8].[ext]'} 
+                options: {name: '[name].[hash:8].[ext]'} 
             }
        ]
     },
@@ -61,8 +61,8 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash:4].css',
-            chunkFilename: 'css/[id].[chunkhash:4].css',
+            filename: '[name].[hash:4].css',
+            chunkFilename: '[id].[chunkhash:4].css',
             ignoreOrder: false
           })
     ]

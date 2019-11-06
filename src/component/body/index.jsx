@@ -5,30 +5,32 @@ import Block from './Block';
 import Control from './Control';
 import {newEmpty, newActive, HEIGHT, WIDTH,TIME_GAP} from './constants';
 import 'antd/dist/antd.css';
+import logo from '../../assets/Tetris_logo.jpg';
 import * as ACTION from '../../store/constants';
 
 
 const Body = (props) => {
     const dispatch = useDispatch();
-    const {score, dead,wallData,activeBlock,posiX,posiY,timerID} = props;
+    const {score, dead,wallData,activeBlock,posiX,posiY,timerID, start} = props;
     const {handleReset,handleLeft,handleRight,handleDown,handleUp} = props;
     useEffect( () => {
         if(dead){
-            clearInterval(timerID);
+            if(start){
+                clearInterval(timerID);
+                alert("GAME OVER !")
+            }
         }else{
             const id = setInterval( ()=>dispatch({type : ACTION.TIME_DROP}), TIME_GAP );
             dispatch({type : ACTION.SET_TIMER, data : id })
         }
     } ,[dead])
+    useEffect( () => {
+        if(wallData.size !== 0) {
+            if(wallData[0].includes(1) || wallData[1].includes(1))
+                dispatch({type : ACTION.GAME_END})
+        }
+    } ,[wallData])
 
-
-    const Debug = () => (
-        <div>
-            posiX : {posiX}     posiY : {posiY}     dead : {dead.toString()} timerID : {timerID}
-            <br />
-            {activeBlock.toString()};
-        </div>
-    )
     const display = () => {
         const rawData = newEmpty();
         for(let i = 0; i < wallData.length; i++){
@@ -49,11 +51,16 @@ const Body = (props) => {
         }
         return dataBlock;
     }
+    const welcomeLogo = () => (
+        <div className = {styles.welcomeLogo}>
+            <img src = {logo} width = "250px"/>
+        </div>
+    )
     return(
         <>
         <div className = {styles.scoretitle}>总分数： {score}</div>
-        <div className = {styles.mainBody}>
-            {display()}
+        <div className = {start ? styles.mainBody : styles.mainBody_init}>
+            {start ? display() : welcomeLogo()}
         </div>
         <Control 
         handleReset = {handleReset} 
@@ -62,7 +69,6 @@ const Body = (props) => {
         handleDown = {handleDown}
         handleUp = {handleUp}
         />
-        <Debug />
         </>
     );
 }
@@ -79,7 +85,8 @@ const mapState = (state) => (
         activeBlock : state.get('activeBlock'),
         posiX : state.get('posiX'),
         posiY : state.get('posiY'),
-        timerID : state.get('timerID')
+        timerID : state.get('timerID'),
+        start : state.get('start')
     });
 
 const mapDispatch = (dispatch) => {
@@ -87,7 +94,7 @@ const mapDispatch = (dispatch) => {
         handleReset : () => dispatch({type: ACTION.RESET}),
         handleLeft : () => dispatch({type : ACTION.CLICK_LEFT}),
         handleRight : () => dispatch({type : ACTION.CLICK_RIGHT}),
-        handleDown : () => dispatch({type : ACTION.CLICK_DOWN}),
+        handleDown : () => dispatch({type : ACTION.TIME_DROP}),
         handleUp : () => dispatch({type : ACTION.CLICK_UP}),
     };
 }

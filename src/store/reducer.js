@@ -9,7 +9,8 @@ const defautlState = fromJS({
     activeBlock : [],
     posiX : 0,
     posiY : 0,
-    timerID : null
+    timerID : null,
+    start : false
 })
 
 const reducer = (state = defautlState, action) => {
@@ -21,6 +22,7 @@ const reducer = (state = defautlState, action) => {
     switch(action.type){
         case ACTION.RESET:{
             return state.merge({
+                start : true,
                 score : 0,
                 dead : false,
                 wallData : newEmpty(),
@@ -55,11 +57,7 @@ const reducer = (state = defautlState, action) => {
             if( (posiX + reverseBlock[0].length) <= WIDTH && (posiY + reverseBlock.length) <= HEIGHT)
                 return state.set('activeBlock', reverseBlock)
         }
-        // Hanlde click down
-        case ACTION.CLICK_DOWN: {
-            return state.set('posiY', Math.min(posiY + 1,HEIGHT - activeBlock.length));
-        }
-
+        // Combine handle_drop with time_drop
         case ACTION.TIME_DROP : {
             if(checkHit(posiY, posiX, activeBlock, wallData)){
                 console.log('hit');
@@ -73,12 +71,16 @@ const reducer = (state = defautlState, action) => {
                 })
             }
             else{ 
-                return state.set('posiY', Math.min(posiY + 1,HEIGHT - activeBlock.length));
+                return state.set('posiY',posiY + 1);
             }
         }
 
         case ACTION.SET_TIMER:{
             return state.set('timerID', action.data);
+        }
+
+        case ACTION.GAME_END : {
+            return state.set('dead', true);
         }
 
     }
@@ -120,6 +122,7 @@ const combine = (posiY, posiX, activeBlock, wallData) => {
     }
     if(clearLevel.length == 0) // Dont need to clear
         return {scoreNew : 0, newWallReturn : newWall};
+
     const returnWall = [];
     for(let i = 0; i < clearLevel.length; i++){
         const newLevel = new Array(WIDTH).fill(0);
