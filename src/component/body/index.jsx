@@ -12,20 +12,25 @@ import * as ACTION from '../../store/constants';
 const Body = (props) => {
     const dispatch = useDispatch();
     const {score, dead,wallData,activeBlock,posiX,posiY,timerID, start} = props;
-    const {handleReset,handleLeft,handleRight,handleDown,handleUp} = props;
+    const {handleReset,handleLeft,handleRight,handleDown,handleUp,handlePause} = props;
     useEffect( () => {
         if(dead){
             if(start){
                 clearInterval(timerID);
                 alert("GAME OVER !");
-                //document.removeEventListener('keydown',listen2); NOT WORKING
             }
         }else{
-            const id = setInterval( ()=>dispatch({type : ACTION.TIME_DROP}), TIME_GAP );
-            document.addEventListener('keydown', handleKey);
-            dispatch({type : ACTION.SET_TIMER, data : id })
+            if(start){
+                const id = setInterval( ()=>dispatch({type : ACTION.TIME_DROP}), TIME_GAP );
+                dispatch({type : ACTION.SET_TIMER, data : id })
+            }else{
+                clearInterval(timerID);
+            }
         }
-    } ,[dead])
+    } ,[dead,start])
+
+    useEffect( ()=> {document.addEventListener('keydown', handleKey);} ,[dispatch])
+
     useEffect( () => {
         if(wallData.size !== 0) {
             if(wallData[0].includes(1) || wallData[1].includes(1))
@@ -39,6 +44,8 @@ const Body = (props) => {
         if(e.code === "ArrowDown")  handleDown();
         if(e.code === "ArrowLeft")  handleLeft();
         if(e.code === "ArrowRight")  handleRight();
+        if(e.code === "Space") handlePause();
+        if(e.code === "Enter") handleReset();
     }
     const display = () => {
         const rawData = newEmpty();
@@ -79,15 +86,12 @@ const Body = (props) => {
         handleRight = {handleRight}
         handleDown = {handleDown}
         handleUp = {handleUp}
+        handlePause = {handlePause}
+        start = {start}
         />
         </>
     );
 }
-
-const listen2 = (e) => {
-    console.log(e);
-}
-
 
 const mapState = (state) => (
     {
@@ -108,6 +112,7 @@ const mapDispatch = (dispatch) => {
         handleRight : () => dispatch({type : ACTION.CLICK_RIGHT}),
         handleDown : () => dispatch({type : ACTION.TIME_DROP}),
         handleUp : () => dispatch({type : ACTION.CLICK_UP}),
+        handlePause : () => dispatch({type : ACTION.PAUSE})
     };
 }
 

@@ -82,6 +82,10 @@ const reducer = (state = defautlState, action) => {
         case ACTION.GAME_END : {
             return state.set('dead', true);
         }
+        
+        case ACTION.PAUSE : {
+            return state.set('start', !state.get('start'));
+        }
 
     }
     return state;

@@ -7,3 +7,4 @@ export const CLICK_UP = 'click_up' + head;
 export const TIME_DROP = 'time_out_and_drop' + head;
 export const SET_TIMER = 'set_timer' + head;
 export const GAME_END = 'game_end' + head;
+export const PAUSE = 'game_pause' + head;
