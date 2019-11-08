@@ -1,4 +1,6 @@
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
@@ -38,7 +40,7 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif)$/i, 
                 loader: 'file-loader',
-                options: {name: '[name].[hash:8].[ext]'} 
+                options: {name: '[name].[hash:8].[ext]', outputPath: 'media'} 
             }
        ]
     },
@@ -65,5 +67,8 @@ module.exports = {
             chunkFilename: '[id].[chunkhash:4].css',
             ignoreOrder: false
           })
-    ]
+    ],
+    optimization: {
+        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      },
 };

@@ -4,7 +4,6 @@ import styles from './style.css';
 import Block from './Block';
 import Control from './Control';
 import {newEmpty, TIME_GAP} from './constants';
-import 'antd/dist/antd.css';
 import logo from '../../assets/Tetris_logo.jpg';
 import * as ACTION from '../../store/constants';
 

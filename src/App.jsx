@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import Loadable from 'react-loadable';
 import store from './store';
 import {Icon} from 'antd';
-import 'antd/dist/antd.css';
 
 const loading = <Icon type="loading" style={{ fontSize: '300px', margin : '100px 100px'}}/>;
 const Body = Loadable({
