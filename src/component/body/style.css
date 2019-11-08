@@ -16,7 +16,7 @@
     height : 504px;
     width : 254px;
     background-image : url('../../assets/game_background.jpg');
-    background-size: contain;
+    background-size: cover;
     border : 2px solid;
     border-radius : 5px;
     float : left;

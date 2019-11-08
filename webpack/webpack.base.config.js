@@ -2,6 +2,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 function resolve(relatedPath) {
@@ -41,7 +42,14 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i, 
                 loader: 'file-loader',
                 options: {name: '[name].[hash:8].[ext]', outputPath: 'media'} 
-            }
+            },
+            {
+                loader:'webpack-ant-icon-loader',
+                enforce: 'pre',
+                include:[
+                  require.resolve('@ant-design/icons/lib/dist')
+                ]
+              }
        ]
     },
     plugins : [
@@ -66,7 +74,8 @@ module.exports = {
             filename: '[name].[hash:4].css',
             chunkFilename: '[id].[chunkhash:4].css',
             ignoreOrder: false
-          })
+          }),
+          new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     optimization: {
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
