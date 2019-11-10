@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'antd';
+import {Button, Icon} from 'antd';
 import styles from './style.css'
 
 const Control = (props) => {
@@ -10,8 +10,9 @@ const Control = (props) => {
             <Button className = {styles.button2} onClick = {props.handleLeft}>左</Button>
             <Button className = {styles.button3} onClick = {props.handleRight}>右</Button>
             <Button className = {styles.button1} onClick = {props.handleDown}>下</Button>
-            <Button className = {styles.pause} type = 'primary' onClick = {props.handlePause}>{props.start? "暂 停" : "继 续"}</Button>
+            <Button className = {styles.pause} type = 'primary' onClick = {props.handlePause} >{props.start? "暂 停" : "继 续"}</Button>
             <Button className = {styles.reset} type = 'danger' onClick = {props.handleReset}>重新开始</Button>
+            <Button className = {styles.reset} type = 'default' onClick = {props.handleBack}><Icon type="home" />主菜单</Button>
             <div className = {styles.instruction}>**使用鼠标或者键盘方向键控制，空格暂停，回车重新开始</div>
         </div>
     );

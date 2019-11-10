@@ -4,13 +4,15 @@ import * as ACTION from './constants';
 
 const defautlState = fromJS({
     score : 999,
+    mode : true,
     dead : true,
     wallData : [],
     activeBlock : [],
     posiX : 0,
     posiY : 0,
     timerID : null,
-    start : false
+    start : false,
+    pause : false
 })
 
 const reducer = (state = defautlState, action) => {
@@ -18,34 +20,49 @@ const reducer = (state = defautlState, action) => {
     const posiY = state.get('posiY');
     const wallData = state.get('wallData');
     const activeBlock = state.get('activeBlock');
-    
+    const pause = state.get('pause');
+    const mode = state.get('mode');
     switch(action.type){
         case ACTION.RESET:{
-            return state.merge({
+            const newState = state.merge({
                 start : true,
                 score : 0,
                 dead : false,
+                pause : false,
                 wallData : newEmpty(),
-                activeBlock : newActive(),
+                activeBlock : newActive(mode),
                 posiX : 4,
                 posiY : 0
             }
             )
+            if(action.mode == 0) // not set, use previous mode
+                return newState;
+            if(action.mode == 1) // set to easy mode
+                return newState.set('mode', true);
+            if(action.mode == 2) // set to hard mode
+                return newState.set('mode', false);
         }
         // Handle Click left
         case ACTION.CLICK_LEFT:{
-            return state.merge({
-                posiX : Math.max(posiX - 1, 0)
-            })
+            if(!pause){
+                return state.merge({
+                    posiX : Math.max(posiX - 1, 0)
+                })
+            }
+            return state;
         }
         // Handle click right
         case ACTION.CLICK_RIGHT:{
-            return state.merge({
-                posiX : Math.min(posiX + 1, WIDTH - activeBlock[0].length),
-            })
+            if(!pause){
+                return state.merge({
+                    posiX : Math.min(posiX + 1, WIDTH - activeBlock[0].length),
+                })
+            }
+            return state;
         }
         // Handle click up
         case ACTION.CLICK_UP:{
+            if(pause) return state;
             const reverseBlock = [];
             for(let i = 0; i < activeBlock[0].length; i++){
                 const newLine = [];
@@ -59,6 +76,7 @@ const reducer = (state = defautlState, action) => {
         }
         // Combine handle_drop with time_drop
         case ACTION.TIME_DROP : {
+            if(pause) return state;
             if(checkHit(posiY, posiX, activeBlock, wallData)){
                 console.log('hit');
                 const {scoreNew,newWallReturn} = combine(posiY, posiX, activeBlock, wallData);
@@ -67,7 +85,7 @@ const reducer = (state = defautlState, action) => {
                     score : state.get('score') + scoreNew,
                     posiX : 4,
                     posiY : 0,
-                    activeBlock : newActive()
+                    activeBlock : newActive(mode)
                 })
             }
             else{ 
@@ -84,7 +102,11 @@ const reducer = (state = defautlState, action) => {
         }
         
         case ACTION.PAUSE : {
-            return state.set('start', !state.get('start'));
+            return state.set('pause', !state.get('pause'));
+        }
+
+        case ACTION.BACKHOME : {
+            return defautlState;
         }
 
     }

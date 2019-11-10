@@ -4,14 +4,14 @@ import styles from './style.css';
 import Block from './Block';
 import Control from './Control';
 import {newEmpty, TIME_GAP} from './constants';
-import logo from '../../assets/Tetris_logo.jpg';
+import Welcome from './Welcome';
 import * as ACTION from '../../store/constants';
 
 
 const Body = (props) => {
     const dispatch = useDispatch();
-    const {score, dead,wallData,activeBlock,posiX,posiY,timerID, start} = props;
-    const {handleReset,handleLeft,handleRight,handleDown,handleUp,handlePause} = props;
+    const {score, mode, dead,wallData,activeBlock,posiX,posiY,timerID, start, pause} = props;
+    const {handleReset,handleLeft,handleRight,handleDown,handleUp,handlePause,handleBack} = props;
     useEffect( () => {
         if(dead){
             if(start){
@@ -66,17 +66,17 @@ const Body = (props) => {
         }
         return dataBlock;
     }
-    const welcomeLogo = () => (
-        <div className = {styles.welcomeLogo}>
-            <img src = {logo} width = "250px"/>
-        </div>
-    )
+
+    const Pause = () => <div className = {styles.pauseblock}>暂停</div>;
+    const easyMode = ()=> dispatch({type: ACTION.RESET, mode : 1})
+    const hardMode = ()=> dispatch({type: ACTION.RESET, mode : 2})
     return(
         <>
-        <div className = {styles.scoretitle}>总分数： {score}</div>
+        <div className = {styles.scoretitle}>总分数： {score}  -  模式：{mode? '简单' :'困难'} </div>
         <div className = {start ? styles.mainBody : styles.mainBody_init}>
             <div id = 'main_body'>
-            {start ? display() : welcomeLogo()}
+            {start ? display() : <Welcome easyMode = {easyMode} hardMode = {hardMode}/>}
+            { pause &&start ? <Pause /> : null}
             </div>
         </div>
         <Control 
@@ -86,6 +86,7 @@ const Body = (props) => {
         handleDown = {handleDown}
         handleUp = {handleUp}
         handlePause = {handlePause}
+        handleBack = {handleBack}
         start = {start}
         />
         </>
@@ -95,23 +96,26 @@ const Body = (props) => {
 const mapState = (state) => (
     {
         score : state.get('score'),
+        mode : state.get('mode'),
         dead : state.get('dead'),
         wallData : state.get('wallData'),
         activeBlock : state.get('activeBlock'),
         posiX : state.get('posiX'),
         posiY : state.get('posiY'),
         timerID : state.get('timerID'),
-        start : state.get('start')
+        start : state.get('start'),
+        pause : state.get('pause')
     });
 
 const mapDispatch = (dispatch) => {
     return {
-        handleReset : () => dispatch({type: ACTION.RESET}),
+        handleReset : () => dispatch({type: ACTION.RESET, mode : 0}),
         handleLeft : () => dispatch({type : ACTION.CLICK_LEFT}),
         handleRight : () => dispatch({type : ACTION.CLICK_RIGHT}),
         handleDown : () => dispatch({type : ACTION.TIME_DROP}),
         handleUp : () => dispatch({type : ACTION.CLICK_UP}),
-        handlePause : () => dispatch({type : ACTION.PAUSE})
+        handlePause : () => dispatch({type : ACTION.PAUSE}),
+        handleBack : () => {dispatch({type : ACTION.BACKHOME})}
     };
 }
 

@@ -15,19 +15,23 @@ export const newEmpty = () => {
 
 export const newBlock = [
     [[1,1,1,1]], //1X4
-    [[1,1,1,1]], //1X4
-    [[1,1],[1,1]], // 2X2
     [[1,1],[1,1]], // 2X2
     [[1,1,0],[0,1,1]], //Z
     [[0,1,1],[1,1,0]],
     [[0,1,0],[1,1,1]],
     [[1,0,0],[1,1,1]],
-    [[0,0,1],[1,1,1]]
+    [[0,0,1],[1,1,1]],
+    [[1,1,1,1]], //1X4
+    [[1,1],[1,1]] // 2X2
 ];
 
-export const newActive = () => {
-    const ans = newBlock[Math.floor(Math.random()*newBlock.length)];
-    return ans;
+export const newActive = (mode) => {
+    if(mode){
+        return newBlock[Math.floor(Math.random()*newBlock.length)];
+    }
+    else{
+        return newBlock[Math.floor(Math.random()* (newBlock.length-2) )];
+    }
 }
 
 export const newConstants = 208;

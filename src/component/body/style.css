@@ -3,6 +3,35 @@
     width : 25px;
     float : left;
 }
+.modeselection{
+    width : 50px;
+    height : 300px;
+    margin : 10px 60px;
+}
+.modebutton{
+    margin : 30px 0;
+    font-size : 24px;
+    width : 130px;
+    height : 40px;
+}
+
+.pauseblock{
+    position : absolute;
+    top : 200px;
+    left : 70px;
+    margin : 50px;
+    line-height : 50px;
+    text-align: center;
+    vertical-align: center;
+    font-size : 24px;
+    color : #ff8800d2;
+    opacity: 0.7;
+    width : 80px;
+    height : 60px;
+    background-color : white;
+    border : solid 3px #ff7700ee;
+    border-radius : 5px;
+}
 
 .scoretitle{
     color : #ff8800d2;
@@ -33,9 +62,9 @@
 }
 
 .control{
-    margin : 80px 0;
+    margin : 10px 0;
     width : 260px;
-    height :440px;
+    height :520px;
     float : left;
     background : #ff880094;
     border : 2px solid;
