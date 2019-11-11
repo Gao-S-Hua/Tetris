@@ -65,7 +65,7 @@ const Body = (props) => {
         const dataBlock = [];
         for(let i = 0; i < rawData.length; i++){
             for(let j = 0; j < rawData[0].length;j++){
-                dataBlock.push(<Block key = {i.toString()+'_'+j.toString()} set = {rawData[i][j]}/>)
+                dataBlock.push(<Block key = {i.toString()+'_'+j.toString()} set = {rawData[i][j]} theme = {theme}/>)
             }
         }
         return dataBlock;
