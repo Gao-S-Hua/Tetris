@@ -9,3 +9,4 @@ export const SET_TIMER = 'set_timer' + head;
 export const GAME_END = 'game_end' + head;
 export const PAUSE = 'game_pause' + head;
 export const BACKHOME = 'go_back_home' + head;
+export const CHANGETHEME = 'change_theme' + head;

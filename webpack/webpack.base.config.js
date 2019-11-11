@@ -29,7 +29,7 @@ module.exports = {
                     resolve('../src/component')
                 ],
                 use:[
-                    {loader: MiniCssExtractPlugin.loader, options : {publicPath : resolve('../dist')}},
+                    {loader: MiniCssExtractPlugin.loader},
                     {loader: 'css-loader',options:{modules: true, url: true}}, 
                     'less-loader']
             },

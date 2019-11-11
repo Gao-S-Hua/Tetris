@@ -5,7 +5,7 @@
 }
 .modeselection{
     width : 50px;
-    height : 300px;
+    height : 200px;
     margin : 10px 60px;
 }
 .modebutton{
@@ -44,7 +44,6 @@
     margin : 10px 20px;
     height : 504px;
     width : 254px;
-    background-image : url('../../assets/game_background.jpg');
     background-size: cover;
     border : 2px solid;
     border-radius : 5px;
@@ -114,4 +113,27 @@
 .instruction{
     margin : 2px 15px;
     font-size : 12px;
+}
+
+.themeChange{
+    margin : auto;
+    width : 280px;
+}
+
+.selectedtheme{
+    margin : 0 10px;
+    border : 2px solid #ff8800d2;
+    width : 34px;
+    height : 34px;
+    float : left;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.theme{
+    margin : 0 10px;
+    width : 40px;
+    height : 40px;
+    float : left;
+    vertical-align: middle;
+    cursor: pointer;
 }

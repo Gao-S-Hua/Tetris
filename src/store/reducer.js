@@ -12,7 +12,8 @@ const defautlState = fromJS({
     posiY : 0,
     timerID : null,
     start : false,
-    pause : false
+    pause : false,
+    theme : 'blue'
 })
 
 const reducer = (state = defautlState, action) => {
@@ -107,6 +108,10 @@ const reducer = (state = defautlState, action) => {
 
         case ACTION.BACKHOME : {
             return defautlState;
+        }
+
+        case ACTION.CHANGETHEME : {
+            return state.set('theme', action.mode)
         }
 
     }

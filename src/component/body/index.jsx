@@ -6,11 +6,15 @@ import Control from './Control';
 import {newEmpty, TIME_GAP} from './constants';
 import Welcome from './Welcome';
 import * as ACTION from '../../store/constants';
+import background from '../../assets/game_background.jpg';
 
+const back = {
+    backgroundImage : `url(${background})`,
+}
 
 const Body = (props) => {
     const dispatch = useDispatch();
-    const {score, mode, dead,wallData,activeBlock,posiX,posiY,timerID, start, pause} = props;
+    const {score, mode, dead,wallData,activeBlock,posiX,posiY,timerID, start, pause, theme} = props;
     const {handleReset,handleLeft,handleRight,handleDown,handleUp,handlePause,handleBack} = props;
     useEffect( () => {
         if(dead){
@@ -70,12 +74,13 @@ const Body = (props) => {
     const Pause = () => <div className = {styles.pauseblock}>暂停</div>;
     const easyMode = ()=> dispatch({type: ACTION.RESET, mode : 1})
     const hardMode = ()=> dispatch({type: ACTION.RESET, mode : 2})
+    const changeTheme = (theme)=> dispatch({type : ACTION.CHANGETHEME, mode : theme})
     return(
         <>
         <div className = {styles.scoretitle}>总分数： {score}  -  模式：{mode? '简单' :'困难'} </div>
-        <div className = {start ? styles.mainBody : styles.mainBody_init}>
+        <div className = {start ? styles.mainBody : styles.mainBody_init} style = {start ? back : null}>
             <div id = 'main_body'>
-            {start ? display() : <Welcome easyMode = {easyMode} hardMode = {hardMode}/>}
+            {start ? display() : <Welcome easyMode = {easyMode} hardMode = {hardMode} changeTheme = {changeTheme} theme = {theme}/>}
             { pause &&start ? <Pause /> : null}
             </div>
         </div>
@@ -104,7 +109,8 @@ const mapState = (state) => (
         posiY : state.get('posiY'),
         timerID : state.get('timerID'),
         start : state.get('start'),
-        pause : state.get('pause')
+        pause : state.get('pause'),
+        theme : state.get('theme')
     });
 
 const mapDispatch = (dispatch) => {
