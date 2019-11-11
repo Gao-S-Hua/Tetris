@@ -28,8 +28,12 @@ module.exports = {
                     resolve('../src/style'),
                     resolve('../src/component')
                 ],
-                use:[{loader: MiniCssExtractPlugin.loader},{loader: 'css-loader',options:{modules: true, url: true}}, 'less-loader']
+                use:[
+                    {loader: MiniCssExtractPlugin.loader, options : {publicPath : resolve('../dist')}},
+                    {loader: 'css-loader',options:{modules: true, url: true}}, 
+                    'less-loader']
             },
+
             {
                 test : /\.(css|less)/, 
                 include: [
@@ -37,12 +41,15 @@ module.exports = {
                 ],
                 use:[{loader: MiniCssExtractPlugin.loader},'css-loader', 'less-loader']
             },
+
             {test: /\.(js|jsx)$/, exclude: /node_modules/, use: ['babel-loader'] },
+
             {
                 test: /\.(png|jpe?g|gif)$/i, 
                 loader: 'file-loader',
                 options: {name: '[name].[hash:8].[ext]', outputPath: 'media'} 
             },
+
             {
                 loader:'webpack-ant-icon-loader',
                 enforce: 'pre',
@@ -56,7 +63,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template : resolve('../src/assets/index.html'),
             title : "React App 2",
-            favicon : resolve('../src/assets/icon.png'),
+            // favicon : resolve('../src/assets/icon.png'),
             minify : {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -71,8 +78,8 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[hash:4].css',
-            chunkFilename: '[id].[chunkhash:4].css',
+            filename: 'css/[name].[hash:4].css',
+            chunkFilename: 'css/[id].[chunkhash:4].css',
             ignoreOrder: false
           }),
           new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)

@@ -7,9 +7,9 @@ const webpackConfigBuild = {
     // output : {
         //publicPath : 'www.host.com/',
     // },
-    plugins : [
-        new BundleAnalyzerPlugin()
-    ]
+    // plugins : [
+    //     new BundleAnalyzerPlugin()
+    // ]
 };
 
 module.exports = merge(webpackConfigBase, webpackConfigBuild);
