@@ -108,7 +108,9 @@ const reducer = (state = defautlState, action) => {
         }
 
         case ACTION.BACKHOME : {
-            clearInterval(state.get('timerID'));
+            const timerID = state.get('timerID')
+            if(timerID !== null)
+                clearInterval(timerID);
             return defautlState;
         }
 
