@@ -46,18 +46,20 @@ const reducer = (state = defautlState, action) => {
         // Handle Click left
         case ACTION.CLICK_LEFT:{
             if(!pause){
-                return state.merge({
-                    posiX : Math.max(posiX - 1, 0)
-                })
+                if(!checkLeftHit(posiY, posiX, activeBlock, wallData))
+                    return state.set('posiX', posiX - 1)
+                else
+                    return state;
             }
             return state;
         }
         // Handle click right
         case ACTION.CLICK_RIGHT:{
             if(!pause){
-                return state.merge({
-                    posiX : Math.min(posiX + 1, WIDTH - activeBlock[0].length),
-                })
+                if(!checkRightHit(posiY, posiX, activeBlock, wallData))
+                    return state.set('posiX', posiX + 1)
+                else
+                    return state;
             }
             return state;
         }
@@ -79,7 +81,6 @@ const reducer = (state = defautlState, action) => {
         case ACTION.TIME_DROP : {
             if(pause) return state;
             if(checkHit(posiY, posiX, activeBlock, wallData)){
-                console.log('hit');
                 const {scoreNew,newWallReturn} = combine(posiY, posiX, activeBlock, wallData);
                 return state.merge({
                     wallData : newWallReturn,
@@ -107,6 +108,7 @@ const reducer = (state = defautlState, action) => {
         }
 
         case ACTION.BACKHOME : {
+            clearInterval(state.get('timerID'));
             return defautlState;
         }
 
@@ -122,6 +124,7 @@ export default reducer;
 
 
 const checkHit = (posiY, posiX, activeBlock, wallData) => {
+    if(activeBlock.length == undefined) return false;
     // Check hit bottom
     if(posiY + activeBlock.length == HEIGHT) return true;
     // Check hit wall
@@ -164,4 +167,26 @@ const combine = (posiY, posiX, activeBlock, wallData) => {
             returnWall.push(newWall[i]);
     }
     return {scoreNew : clearLevel.length, newWallReturn : returnWall};
-}
+};
+
+const checkLeftHit = (posiY, posiX, activeBlock,wallData) => {
+    if(posiX == 0) return true;
+    for(let i = 0; i < activeBlock[0].length; i++){
+        for(let j = 0; j < activeBlock.length; j++){
+           if(wallData[posiY + j][posiX+i - 1] && activeBlock[j][i])
+                return true;
+        }
+    }
+    return false;
+};
+
+const checkRightHit = (posiY, posiX, activeBlock,wallData) => {
+    if(posiX + activeBlock[0].length == WIDTH)  return true;
+    for(let i = 0; i < activeBlock[0].length; i++){
+        for(let j = 0; j < activeBlock.length; j++){
+           if(wallData[posiY + j][posiX+i + 1] && activeBlock[j][i])
+                return true;
+        }
+    }
+    return false;
+};

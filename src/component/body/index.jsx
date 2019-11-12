@@ -32,7 +32,7 @@ const Body = (props) => {
         }
     } ,[dead,start])
 
-    useEffect( ()=> {document.addEventListener('keydown', handleKey);} ,[dispatch])
+    useEffect( ()=> {document.addEventListener('keydown', handleKey);} ,[1])
 
     useEffect( () => {
         if(wallData.size !== 0) {

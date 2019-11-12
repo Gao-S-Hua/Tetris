@@ -62,7 +62,7 @@ module.exports = {
     plugins : [
         new htmlWebpackPlugin({
             template : resolve('../src/assets/index.html'),
-            title : "React App 2",
+            title : "Tetris",
             // favicon : resolve('../src/assets/icon.png'),
             minify : {
                 removeComments: true,
