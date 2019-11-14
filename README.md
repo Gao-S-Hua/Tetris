@@ -6,10 +6,11 @@
 方向键 + 空格（开始/暂停） + 回车（开始游戏/重新开始）
 ```
 ## 游戏界面
-<img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris.JPG" width="703" height="783"/>
 ```
-包括难度选择，皮肤主题等
+包括难度，皮肤主题等
 ```
+<img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris/Tetris.JPG" width="703" height="783"/>
+<img src="https://github.com/Gao-S-Hua/shared/blob/master/Start.JPG" width="721" height="780"/>
 
 ## webpack打包之后：
-<img src="https://github.com/Gao-S-Hua/shared/blob/master/After_Webpack.JPG" width="547" height="115"/>
+<img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris/After_Webpack.JPG" width="547" height="115"/>
