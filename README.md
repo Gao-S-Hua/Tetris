@@ -1,4 +1,11 @@
 # Tetris
+
+```
+npm start : run webpackServer and test
+npm build : Webpack all the resources into ./dist
+```
+
+
 ## 俄罗斯方块中文版
 ```
 可以使用键盘或者鼠标控制
@@ -10,7 +17,7 @@
 包括难度，皮肤主题等
 ```
 <img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris/Tetris.JPG" width="703" height="783"/>
-<img src="https://github.com/Gao-S-Hua/shared/blob/master/Start.JPG" width="721" height="780"/>
+<img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris/Start.JPG" width="721" height="780"/>
 
 ## webpack打包之后：
 <img src="https://github.com/Gao-S-Hua/shared/blob/master/Tetris/After_Webpack.JPG" width="547" height="115"/>
