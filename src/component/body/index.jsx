@@ -42,7 +42,7 @@ const Body = (props) => {
     } ,[wallData])
 
     const handleKey = (e) => {
-        
+        e.preventDefault();
         if(e.code === "ArrowUp")    handleUp();
         if(e.code === "ArrowDown")  handleDown();
         if(e.code === "ArrowLeft")  handleLeft();
